@@ -1,0 +1,230 @@
+/* Global */
+
+@import "css/normalize.css";
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("fonts/Montserrat-Medium.woff2") format("woff2");
+}
+
+body {
+    font-family: "Montserrat";
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+
+/* Main header */
+
+header {
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 16px 16px 0px #00000008;
+}
+
+.main-navigation {
+    width: 1440px;
+    min-height: 74px;
+
+}
+
+.user-info--menu {
+    width: 32px;
+    height: 32px;
+    background: url(img/menu.svg) no-repeat;
+    background-position: center 0px;
+    background-size: 121%;
+    margin-right: 10px;
+}
+
+.navigation-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.user-info, .user-notification{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-info--brief {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.user-name {
+    margin-left: 10px;
+}
+
+.input-wrapper {
+    width: 100%;
+}
+
+.standart-input {
+    /*width: 100%;*/
+}
+
+.stretch {
+    width: 100%;
+}
+
+.second-input {
+    display: flex;
+}
+
+.second-input--selector {
+    flex-grow: 1;
+}
+
+.second-input .margin-right {
+    margin: 8px 8px 8px 0;
+}
+
+.second-input .margin-left {
+    margin: 8px 0 0 8px;
+}
+
+.user-notification--btn {
+    border: 1px solid #000;
+    border-radius: 16px;
+    font-size: 12px;
+    width: 108px;
+    height: 32px;
+    background-color: #fff;
+    margin-right: 10px;
+}
+
+/* Main */
+
+.container {
+    display: flex;
+    width: 1165px;
+    margin: 0 auto;
+
+    flex-direction: column;
+    align-items: center;
+}
+
+.arrow-caption {
+    width: 100%;
+    display: flex;
+    margin-top: 40px;
+    height: 32px;
+    font-size: 32px;
+    align-items: center;
+
+}
+
+.arrow-img {
+    padding-right: 318px;
+}
+
+
+.product-selection {
+    width: 305px;
+    height: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.first-input {
+    width: 100%;
+}
+
+.available-products {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.slider {
+    list-style: none;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.product-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 177px;
+    height: 177px;
+    box-shadow: 16px 0px 27px 5px #00000008;
+    border-radius: 16px;
+}
+
+.border-product {
+    width: 126px;
+    height: 138px;
+
+
+}
+
+.border-product img {
+
+    margin: 0 14px 20px;
+}
+
+.border-product p {
+    font-size: 11.24px;
+}
+
+.slider li {
+    margin: 0 10px;
+}
+
+.create-new-product {
+    margin-top: 20px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
+}
+
+.create-new-product p {
+    font-size: 14px;
+    padding-right: 10px;
+
+}
+
+.button-create {
+    background-color: #333333;
+    color: #ffffff;
+    font-size: 14px;
+    /*border: 1px solid #000;*/
+    border-radius: 16px;
+    width: 255px;
+    height: 48px;
+}
+
+.input-wrapper .standart-input .MuiInputBase-input {
+    background-color: #fff;
+}
+
+.second-input .second-input--selector .MuiInputBase-input {
+    background-color: #fff;
+}
+
+
