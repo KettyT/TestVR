@@ -4,6 +4,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import InputBase from '@mui/material/InputBase';
 import NativeSelect from '@mui/material/NativeSelect';
+import Slider from "./Slider";
 
 function AppBody() {
 
@@ -104,49 +105,10 @@ function AppBody() {
 
             </section>
 
-            <section>
+            <section className="slider-section">
                 <h2 className="visually-hidden">Карусель доступных товаров</h2>
                 <p className="available-products">Доступные товары</p>
-                <div className="slider-wrapper">
-                    <ul className="slider">
-                        <li className="product-card">
-                            <div className="border-product">
-                                <img src="img/product.svg" width="98" height="90" alt="Товар 1"/>
-                                    <p>Juvederm VOLBELLA, <br/> Волбела 01</p>
-                            </div>
-                        </li>
-                        <li className="product-card">
-                            <div className="border-product">
-                                <img src="img/product.svg" width="98" height="90" alt="Товар 2"/>
-                                    <p>Juvederm VOLBELLA, <br/> Волбела 02</p>
-                            </div>
-                        </li>
-                        <li className="product-card">
-                            <div className="border-product">
-                                <img src="img/product.svg" width="98" height="90" alt="Товар 3"/>
-                                    <p>Juvederm VOLBELLA, <br/> Волбела 03</p>
-                            </div>
-                        </li>
-                        <li className="product-card">
-                            <div className="border-product">
-                                <img src="img/product.svg" width="98" height="90" alt="Товар 4"/>
-                                    <p>Juvederm VOLBELLA, <br/> Волбела 04</p>
-                            </div>
-                        </li>
-                        <li className="product-card">
-                            <div className="border-product">
-                                <img src="img/product.svg" width="98" height="90" alt="Товар 5"/>
-                                    <p>Juvederm VOLBELLA, <br/> Волбела 05</p>
-                            </div>
-                        </li>
-                        <li className="product-card">
-                            <div className="border-product">
-                                <img src="img/product.svg" width="98" height="90" alt="Товар 6"/>
-                                    <p>Juvederm VOLBELLA, <br/> Волбела 06</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                <Slider/>
             </section>
 
             <section className="create-new-product">

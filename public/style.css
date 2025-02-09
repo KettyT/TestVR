@@ -191,6 +191,19 @@ header {
     font-size: 11.24px;
 }
 
+.slider-section {
+    width: 100%;
+}
+
+.slider-wrapper {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.slider {
+    width: 3000px;
+}
+
 .slider li {
     margin: 0 10px;
 }
