@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {generatedData} from "./data/data";
 
 class Slider extends React.Component {
 
@@ -16,7 +17,7 @@ class Slider extends React.Component {
         this.lastClientX = 0;
     }
 
-    mouseMove(evt:any) {
+    mouseMove(evt) {
         if (!this.state.isMouseDown) {
             return;
         }
@@ -38,7 +39,7 @@ class Slider extends React.Component {
         console.log(evt);*/
     }
 
-    mouseDown(evt : any) {
+    mouseDown(evt) {
         evt.preventDefault();
         evt.stopPropagation();
 
@@ -59,6 +60,30 @@ class Slider extends React.Component {
     }
 
     render () {
+        let wares = [];
+
+        console.log(this.props.filter.category);
+
+        // Фильтр на категорию
+        if (this.props.filter.category && this.props.filter.category !== "None") {
+            const subcategories = generatedData.catIdx[this.props.filter.category].subcategories;
+
+            let existedSubs = {};
+            subcategories.forEach((sub) => {
+                existedSubs[sub.id] = true;
+            });
+
+            this.props.wares.forEach((ware) => {
+                if (existedSubs[ware.sub]) {
+                    wares.push(ware);
+                }
+            })
+
+        } else {
+            wares = this.props.wares;
+        }
+
+
         return (
             <div className="slider-wrapper">
                 <ul className="slider"
@@ -66,13 +91,20 @@ class Slider extends React.Component {
                     onMouseMove={(evt) => {this.mouseMove.call(this, evt)}}
                     onMouseDown={(evt) => {this.mouseDown.call(this, evt)}}
                     onMouseUp={() => {this.mouseUp.call(this)}}>
-                    <li className="product-card">
-                        <div className="border-product">
-                            <img src="img/product.svg" width="98" height="90" alt="Товар 1"/>
-                            <p>Juvederm VOLBELLA, <br/> Волбела 01</p>
-                        </div>
-                    </li>
-                    <li className="product-card">
+
+                    {wares.map((ware) => {
+                        return (
+                            <li className="product-card">
+                                <div data-id={ware.id} className="border-product">
+                                    <img src="img/product.svg" width="98" height="90" alt="Товар 1"/>
+                                    <p>{ware.name}</p>
+                                </div>
+                            </li>
+                        );
+                    })}
+
+
+                    {/*<li className="product-card">
                         <div className="border-product">
                             <img src="img/product.svg" width="98" height="90" alt="Товар 2"/>
                             <p>Juvederm VOLBELLA, <br/> Волбела 02</p>
@@ -127,7 +159,7 @@ class Slider extends React.Component {
                             <img src="img/product.svg" width="98" height="90" alt="Товар 6"/>
                             <p>Juvederm VOLBELLA, <br/> Волбела 06</p>
                         </div>
-                    </li>
+                    </li>*/}
                 </ul>
             </div>
         );
