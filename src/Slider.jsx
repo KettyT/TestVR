@@ -26,7 +26,8 @@ class Slider extends React.Component {
         evt.stopPropagation();
 
         const clientX = evt.clientX;
-        const offset = (this.state.sliderOffset + (clientX - this.state.clientX));
+        const offset = Math.min((this.state.sliderOffset + (clientX - this.state.clientX)), 0);
+
         this.slider.style.marginLeft = offset + "px"
         this.sliderOffset = offset;
         this.lastClientX = evt.clientX;
@@ -63,26 +64,44 @@ class Slider extends React.Component {
         let wares = [];
 
         console.log(this.props.filter.category);
-
+        let existedSubs = {};
         // Фильтр на категорию
-        if (this.props.filter.category && this.props.filter.category !== "None") {
+        if (this.props.filter.category && this.props.filter.category !== "None"
+            && (!this.props.filter.subcategory || this.props.filter.subcategory === "None")) {
             const subcategories = generatedData.catIdx[this.props.filter.category].subcategories;
 
-            let existedSubs = {};
             subcategories.forEach((sub) => {
                 existedSubs[sub.id] = true;
             });
-
-            this.props.wares.forEach((ware) => {
-                if (existedSubs[ware.sub]) {
-                    wares.push(ware);
-                }
-            })
-
-        } else {
-            wares = this.props.wares;
         }
 
+        if (this.props.filter.subcategory && this.props.filter.subcategory !== "None") {
+            existedSubs[this.props.filter.subcategory] = true;
+        }
+
+        this.props.wares.forEach((ware) => {
+            if (this.props.filter.wareName) {
+                // && !ware.name.startsWith(this.props.filter.wareName)
+                const words = ware.name.split(" ");
+
+                let suitable = false;
+                for (let i = 0; i < words.length ; i++) {
+                    if (words[i].startsWith(this.props.filter.wareName)) {
+                        suitable = true;
+                        break;
+                    }
+                }
+
+                if (!suitable) {
+                    return;
+                }
+            }
+
+            if (existedSubs && existedSubs[ware.sub]
+                || Object.keys(existedSubs).length === 0) {
+                wares.push(ware);
+            }
+        })
 
         return (
             <div className="slider-wrapper">
@@ -102,64 +121,6 @@ class Slider extends React.Component {
                             </li>
                         );
                     })}
-
-
-                    {/*<li className="product-card">
-                        <div className="border-product">
-                            <img src="img/product.svg" width="98" height="90" alt="Товар 2"/>
-                            <p>Juvederm VOLBELLA, <br/> Волбела 02</p>
-                        </div>
-                    </li>
-                    <li className="product-card">
-                        <div className="border-product">
-                            <img src="img/product.svg" width="98" height="90" alt="Товар 3"/>
-                            <p>Juvederm VOLBELLA, <br/> Волбела 03</p>
-                        </div>
-                    </li>
-                    <li className="product-card">
-                        <div className="border-product">
-                            <img src="img/product.svg" width="98" height="90" alt="Товар 4"/>
-                            <p>Juvederm VOLBELLA, <br/> Волбела 04</p>
-                        </div>
-                    </li>
-                    <li className="product-card">
-                        <div className="border-product">
-                            <img src="img/product.svg" width="98" height="90" alt="Товар 5"/>
-                            <p>Juvederm VOLBELLA, <br/> Волбела 05</p>
-                        </div>
-                    </li>
-                    <li className="product-card">
-                        <div className="border-product">
-                            <img src="img/product.svg" width="98" height="90" alt="Товар 6"/>
-                            <p>Juvederm VOLBELLA, <br/> Волбела 06</p>
-                        </div>
-                    </li>
-
-                    <li className="product-card">
-                        <div className="border-product">
-                            <img src="img/product.svg" width="98" height="90" alt="Товар 5"/>
-                            <p>Juvederm VOLBELLA, <br/> Волбела 05</p>
-                        </div>
-                    </li>
-                    <li className="product-card">
-                        <div className="border-product">
-                            <img src="img/product.svg" width="98" height="90" alt="Товар 6"/>
-                            <p>Juvederm VOLBELLA, <br/> Волбела 06</p>
-                        </div>
-                    </li>
-
-                    <li className="product-card">
-                        <div className="border-product">
-                            <img src="img/product.svg" width="98" height="90" alt="Товар 5"/>
-                            <p>Juvederm VOLBELLA, <br/> Волбела 05</p>
-                        </div>
-                    </li>
-                    <li className="product-card">
-                        <div className="border-product">
-                            <img src="img/product.svg" width="98" height="90" alt="Товар 6"/>
-                            <p>Juvederm VOLBELLA, <br/> Волбела 06</p>
-                        </div>
-                    </li>*/}
                 </ul>
             </div>
         );

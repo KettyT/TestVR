@@ -4,6 +4,8 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import InputBase from '@mui/material/InputBase';
 import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Slider from "./Slider";
 import {generatedData} from "./data/data";
 
@@ -59,13 +61,39 @@ class AppBody extends React.Component  {
 
         this.state = {
             currentCategory: "None",
-            currentSubcategory: "None"
+            currentSubcategory: "None",
+            currentItemName: ""
         }
     }
 
     render() {
         const self = this;
         console.log(generatedData);
+
+        const createWare = (event) => {
+            const wareName = document.querySelector(".standart-input input");
+
+            const subSelect = document.querySelector("#val2");
+            const wareSub = subSelect.value;
+
+            if (!wareName || !wareSub) {
+                // todo Добавить ошибку
+                return;
+            }
+
+            generatedData.addNewWare({
+                name: wareName.value,
+                sub: +wareSub
+            });
+
+            this.setState(this.state);
+        };
+
+        const handleItemNameInput = (event) => {
+            let currentItemName = event.target.value;
+
+            self.setState(Object.assign(this.state, {currentItemName: currentItemName}));
+        };
 
         const handleChangeCategory = (event) => {
             let currentCategory = event.target.value;
@@ -99,11 +127,18 @@ class AppBody extends React.Component  {
                         <InputLabel shrink htmlFor="bootstrap-input">
                             Поиск по названию
                         </InputLabel>
-                        <BootstrapInput className="standart-input" defaultValue="" id="item-title" />
+                        <BootstrapInput
+                            className="standart-input"
+                            defaultValue=""
+                            id="item-title"
+                            onChange={handleItemNameInput}
+                        />
                     </FormControl>
                     <div className="second-input">
                         <FormControl className="second-input--selector margin-right" sx={{ m: 1 }} variant="standard">
-                            <InputLabel htmlFor="demo-customized-select-native">Категория</InputLabel>
+                            {/*<InputLabel htmlFor="demo-customized-select-native">Категория</InputLabel>*/}
+                            <label className="css-1ew92b2-MuiFormLabel-root-MuiInputLabel-root">Категория</label>
+
                             <NativeSelect
                                 key = "1"
                                 id="val1"
@@ -118,8 +153,12 @@ class AppBody extends React.Component  {
 
                             </NativeSelect>
                         </FormControl>
+                        <div>
+
+                        </div>
                         <FormControl className="second-input--selector margin-left" sx={{ m: 1 }} variant="standard">
-                            <InputLabel htmlFor="demo-customized-select-native">Подкатегория</InputLabel>
+                            {/*<InputLabel htmlFor="demo-customized-select-native">Подкатегория</InputLabel>*/}
+                            <label className="css-1ew92b2-MuiFormLabel-root-MuiInputLabel-root">Подкатегория</label>
                             <NativeSelect
                                 key = "2"
                                 id="val2"
@@ -144,14 +183,15 @@ class AppBody extends React.Component  {
                         filter = {{
                             category: this.state.currentCategory,
                             subcategory: this.state.currentSubcategory,
-                            wareName: ""
+                            wareName: this.state.currentItemName
                         }}
                     />
                 </section>
 
                 <section className="create-new-product">
                     <p className="last-par">Товара нет в списке?</p>
-                    <button className="button-create">Создать новый товар +</button>
+                    <button className="button-create"
+                        onClick={createWare}>Создать новый товар +</button>
                 </section>
 
             </main>
